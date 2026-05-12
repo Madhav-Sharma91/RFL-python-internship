@@ -1,0 +1,59 @@
+# BASIC CSV READER (WITHOUT PANDAS)
+
+# Step 1: Create sample CSV file
+with open("students.csv", "w") as file:
+    file.write("NAME,AGE,MARKS\n")
+    file.write("AMIT,20,85\n")
+    file.write("RIYA,21,90\n")
+    file.write("RAHUL,22,\n")   # Missing marks example
+
+# Step 2: Read CSV file
+data = []
+
+with open("students.csv", "r") as file:
+    lines = file.readlines()
+
+    # Extract headers
+    headers = lines[0].strip().split(",")
+
+    # Read remaining rows
+    for line in lines[1:]:
+        values = line.strip().split(",")
+
+        student = {}
+
+        for i in range(len(headers)):
+            key = headers[i]
+
+            # Handle missing values
+            if i >= len(values) or values[i] == "":
+                value = "Missing"
+            else:
+                value = values[i]
+
+            # Convert AGE and MARKS to integers if possible
+            if key in ["AGE", "MARKS"] and value != "Missing":
+                value = int(value)
+
+            student[key] = value
+
+        data.append(student)
+
+# Step 3: Display data
+print("Student Data:\n")
+print(data)
+
+# Step 4: Calculate average marks
+total = 0
+count = 0
+
+for student in data:
+    if student["MARKS"] != "Missing":
+        total += student["MARKS"]
+        count += 1
+
+if count > 0:
+    average = total / count
+    print("\nAverage Marks =", average)
+else:
+    print("\nNo valid marks available.")
