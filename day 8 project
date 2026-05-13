@@ -1,0 +1,39 @@
+#How to take insights in employee salary
+  import pandas as pd
+
+# Step 1: Create Dataset
+data = {
+    "Name": ["A", "B", "C", "D"],
+    "Dept": ["IT", "HR", "IT", "HR"],
+    "Salary": [5000, 4000, 6000, 4500]
+}
+
+df = pd.DataFrame(data)
+# Display dataset
+print("Employee Dataset:\n")
+print(df)
+  
+# Step 2: Average Salary Per Department
+avg_salary = df.groupby("Dept")["Salary"].mean()
+
+print("\nAverage Salary Per Department:\n")
+print(avg_salary)
+# Step 3: Highest Paid Employee Per Department
+highest_paid = df.loc[df.groupby("Dept")["Salary"].idxmax()]
+
+print("\nHighest Paid Employee Per Department:\n")
+print(highest_paid)
+
+
+# Step 4: Count Employees Per Department
+employee_count = df.groupby("Dept")["Name"].count()
+
+print("\nEmployee Count Per Department:\n")
+print(employee_count)
+
+
+# Step 5: Sort Departments By Average Salary
+sorted_departments = avg_salary.sort_values(ascending=False)
+
+print("\nDepartments Sorted By Average Salary:\n")
+print(sorted_departments)
