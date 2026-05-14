@@ -1,0 +1,142 @@
+# ==========================================
+# PROJECT 9 - DATA FILTERING TOOL
+# ==========================================
+
+# Import pandas library
+import pandas as pd
+
+
+# ------------------------------------------
+# STEP 1: CREATE DATASET
+# ------------------------------------------
+
+data = {
+    "Name": ["Rahul", "Aman", "Priya", "Neha", "Karan", "Simran"],
+    "Age": [25, 35, 22, 28, 40, 24],
+    "Salary": [60000, 45000, 70000, 52000, 30000, 80000],
+    "Department": ["IT", "HR", "Finance", "IT", "Sales", "Marketing"]
+}
+
+# Create DataFrame
+df = pd.DataFrame(data)
+
+
+# ------------------------------------------
+# STEP 2: DISPLAY ORIGINAL DATA
+# ------------------------------------------
+
+print("\n========== ORIGINAL DATA ==========\n")
+print(df)
+
+
+# ------------------------------------------
+# STEP 3: APPLY FILTER CONDITIONS
+# ------------------------------------------
+# CONDITION:
+# Salary > 50000
+# Age < 30
+
+filtered_data = df[
+    (df["Salary"] > 50000) &
+    (df["Age"] < 30)
+]
+
+
+# ------------------------------------------
+# STEP 4: DISPLAY FILTERED RESULTS
+# ------------------------------------------
+
+print("\n========== FILTERED DATA ==========\n")
+print(filtered_data)
+
+
+# ------------------------------------------
+# STEP 5: SAVE FILTERED DATA TO NEW FILE
+# ------------------------------------------
+
+filtered_data.to_csv("filtered_data.csv", index=False)
+
+print("\nFiltered data saved successfully!")
+print("\nFile Name: filtered_data.csv")
+
+
+# ------------------------------------------
+# BONUS EXAMPLES
+# ------------------------------------------
+
+# Example 1: OR Condition
+print("\n========== OR CONDITION ==========\n")
+
+or_filter = df[
+    (df["Salary"] > 70000) |
+    (df["Age"] < 25)
+]
+
+print(or_filter)
+
+
+# Example 2: NOT Condition
+print("\n========== NOT CONDITION ==========\n")
+
+not_filter = df[
+    ~(df["Department"] == "HR")
+]
+
+print(not_filter)
+
+
+# Example 3: IF-ELSE with Filters
+print("\n========== IF ELSE FILTER ==========\n")
+
+for index, row in df.iterrows():
+
+    if row["Salary"] > 50000:
+        print(row["Name"], "has High Salary")
+
+    else:
+        print(row["Name"], "has Low Salary")
+
+
+# ------------------------------------------
+# STEP 6: SORT FILTERED DATA
+# ------------------------------------------
+
+print("\n========== SORTED BY SALARY ==========\n")
+
+sorted_data = filtered_data.sort_values(
+    by="Salary",
+    ascending=False
+)
+
+print(sorted_data)
+
+
+# ------------------------------------------
+# STEP 7: DISPLAY BASIC INFORMATion
+print("\n========== DATA INFORMATION ==========\n")
+
+print("Total Rows :", df.shape[0])
+print("Total Columns :", df.shape[1])
+
+print("\nColumn Names:")
+print(df.columns)
+
+print("\nData Types:")
+print(df.dtypes)
+
+
+# ------------------------------------------
+# STEP 8: SAVE AS EXCEL FILE (OPTIONAL)
+# ------------------------------------------
+
+filtered_data.to_excel(
+    "filtered_data.xlsx",
+    index=False
+)
+
+print("\nExcel file saved successfully!")
+
+
+# ==========================================
+# END OF PROJECT
+# ==========================================
