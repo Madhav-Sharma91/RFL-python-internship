@@ -1,0 +1,35 @@
+import matplotlib.pyplot as plt
+
+# Dataset
+dates = ["MON", "TUE", "WED", "THU", "FRI"]
+sales = [200, 250, 300, 280, 350]
+
+# Finding highest and lowest sales
+max_sale = max(sales)
+min_sale = min(sales)
+
+max_day = dates[sales.index(max_sale)]
+min_day = dates[sales.index(min_sale)]
+
+# Plotting line chart
+plt.plot(dates, sales, marker='o', linewidth=3)
+
+# Highlight highest and lowest points
+plt.scatter(max_day, max_sale, color='green', s=100, label="Highest Sale")
+plt.scatter(min_day, min_sale, color='red', s=100, label="Lowest Sale")
+
+# Adding labels and title
+plt.title("Sales Trend Visualization")
+plt.xlabel("Days")
+plt.ylabel("Sales")
+
+# Adding data labels
+for i in range(len(dates)):
+    plt.text(dates[i], sales[i] + 5, str(sales[i]), ha='center')
+
+# Legend and grid
+plt.legend()
+plt.grid(True)
+
+# Show plot
+plt.show()
