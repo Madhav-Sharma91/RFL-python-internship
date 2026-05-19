@@ -1,0 +1,53 @@
+# Student Performance Dashboard using Matplotlib
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Dataset
+students = ["AMIT", "RIYA", "JOHN"]
+marks = [85, 92, 78]
+
+# ---------------- SIMPLE BAR CHART ----------------
+plt.figure(figsize=(6,5))
+
+plt.bar(students, marks)
+
+plt.title("Student Performance Dashboard")
+plt.xlabel("Students")
+plt.ylabel("Marks")
+
+plt.ylim(0, 100)
+
+# Display marks on top of bars
+for i in range(len(students)):
+    plt.text(i, marks[i] + 1, str(marks[i]), ha='center')
+
+plt.show()
+
+
+# ---------------- BONUS : GROUPED BAR CHART ----------------
+
+# Multiple subjects marks
+maths = [85, 92, 78]
+science = [88, 90, 80]
+english = [82, 95, 76]
+
+x = np.arange(len(students))
+width = 0.25
+
+plt.figure(figsize=(8,5))
+
+plt.bar(x - width, maths, width, label="Maths")
+plt.bar(x, science, width, label="Science")
+plt.bar(x + width, english, width, label="English")
+
+plt.title("Comparative Student Performance")
+plt.xlabel("Students")
+plt.ylabel("Marks")
+
+plt.xticks(x, students)
+plt.ylim(0, 100)
+
+plt.legend()
+
+plt.show()
