@@ -1,0 +1,46 @@
+# Basic CSV Reader (Without Pandas)
+
+# Create sample CSV file
+file = open("students.csv", "w")
+file.write("NAME,AGE,MARKS\n")
+file.write("AMIT,20,85\n")
+file.write("RIYA,21,90\n")
+file.close()
+
+# Read CSV file
+file = open("students.csv", "r")
+
+lines = file.readlines()
+file.close()
+
+# Empty list to store dictionaries
+students = []
+
+# Skip header line
+for line in lines[1:]:
+    data = line.strip().split(",")
+
+    # Handle missing values
+    if len(data) == 3 and data[0] != "" and data[1] != "" and data[2] != "":
+        student = {
+            "NAME": data[0],
+            "AGE": int(data[1]),
+            "MARKS": int(data[2])
+        }
+
+        students.append(student)
+
+# Output
+print("Student Data:")
+for student in students:
+    print(student)
+
+# Calculate average marks
+total = 0
+
+for student in students:
+    total += student["MARKS"]
+
+average = total / len(students)
+
+print("\nAverage Marks:", average)
