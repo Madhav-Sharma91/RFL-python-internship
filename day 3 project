@@ -1,0 +1,41 @@
+# Given marks
+marks = [78, 85, 90, 67, 85, 92, 78]
+
+# Function to calculate average
+def calculate_average(data):
+    return sum(data) / len(data)
+
+# Calculate values
+average = calculate_average(marks)
+highest = max(marks)
+lowest = min(marks)
+
+# Count students above average
+above_average = 0
+for mark in marks:
+    if mark > average:
+        above_average += 1
+
+# Grade distribution
+grades = {"A":0, "B":0, "C":0, "FAIL":0}
+
+for mark in marks:
+    if mark >= 90:
+        grades["A"] += 1
+    elif mark >= 75:
+        grades["B"] += 1
+    elif mark >= 50:
+        grades["C"] += 1
+    else:
+        grades["FAIL"] += 1
+
+# Output
+print("Marks:", marks)
+print("Average Marks:", average)
+print("Highest Marks:", highest)
+print("Lowest Marks:", lowest)
+print("Students Above Average:", above_average)
+
+print("\nGrade Distribution:")
+for grade, count in grades.items():
+    print(grade, ":", count)
