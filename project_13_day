@@ -1,0 +1,31 @@
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Dataset (Student Marks)
+marks = [45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95]
+
+# Create Histogram with KDE Curve
+sns.histplot(marks, kde=True, bins=5)
+
+# Title and Labels
+plt.title("Distribution Analysis of Student Marks")
+plt.xlabel("Marks")
+plt.ylabel("Frequency")
+
+# Show Plot
+plt.show()
+
+# Identify Skewness
+mean = np.mean(marks)
+median = np.median(marks)
+
+print("Mean :", mean)
+print("Median :", median)
+
+if mean > median:
+    print("Data is Positively Skewed")
+elif mean < median:
+    print("Data is Negatively Skewed")
+else:
+    print("Data is Symmetrical")
