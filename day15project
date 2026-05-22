@@ -1,0 +1,72 @@
+# MINI EDA DASHBOARD (COMBINED)
+# Concepts:
+# 1. Multiple Plots
+# 2. Insight Generation
+# 3. Trend Analysis
+# 4. Comparison
+# 5. Distribution
+# 6. Outlier Detection
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Sample Dataset
+data = {
+    "Month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    "Sales": [120, 150, 170, 160, 180, 250],
+    "Profit": [20, 25, 30, 28, 35, 80]
+}
+
+df = pd.DataFrame(data)
+
+# Create Figure with Subplots
+fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+
+
+# 1. LINE CHART (Trend)
+
+axes[0,0].plot(df["Month"], df["Sales"], marker='o')
+axes[0,0].set_title("Sales Trend")
+axes[0,0].set_xlabel("Month")
+axes[0,0].set_ylabel("Sales")
+
+
+ 2. BAR CHART (Comparison)
+axes[0,1].bar(df["Month"], df["Profit"])
+axes[0,1].set_title("Profit Comparison")
+axes[0,1].set_xlabel("Month")
+axes[0,1].set_ylabel("Profit")
+
+3. HISTOGRAM (Distribution)
+
+axes[1,0].hist(df["Sales"], bins=5)
+axes[1,0].set_title("Sales Distribution")
+axes[1,0].set_xlabel("Sales")
+axes[1,0].set_ylabel("Frequency")
+# 4. SCATTER PLOT (Outlier Detection)
+# -------------------------------
+axes[1,1].scatter(df["Sales"], df["Profit"])
+
+# Highlight possible outlier
+axes[1,1].annotate("Outlier", (250, 80))
+
+axes[1,1].set_title("Sales vs Profit")
+axes[1,1].set_xlabel("Sales")
+axes[1,1].set_ylabel("Profit")
+
+# Adjust Layout
+plt.tight_layout()
+
+# Show Dashboard
+plt.show()
+
+# -------------------------------
+# INSIGHTS
+# -------------------------------
+print("INSIGHTS:")
+print("1. Sales show an overall increasing trend.")
+print("2. Profit is highest in June.")
+print("3. Most sales values are between 150 and 200.")
+print("4. June data point appears as a possible outlier.")
+print("5. Higher sales generally lead to higher profit.")
