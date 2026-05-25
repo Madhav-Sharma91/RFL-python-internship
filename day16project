@@ -1,0 +1,150 @@
+# ==========================================
+# PROJECT 16 — COMPLETE SALES DATA EDA
+# ==========================================
+
+# Import Libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# ------------------------------------------
+# STEP 1: CREATE SAMPLE SALES DATASET
+# ------------------------------------------
+
+data = {
+    "Date": [
+        "2025-01-01", "2025-01-05", "2025-01-10",
+        "2025-01-15", "2025-01-20", "2025-01-25",
+        "2025-02-01", "2025-02-05", "2025-02-10",
+        "2025-02-15"
+    ],
+
+    "Product": [
+        "Laptop", "Phone", "Tablet",
+        "Laptop", "Phone", "Tablet",
+        "Laptop", "Phone", "Tablet",
+        np.nan
+    ],
+
+    "Region": [
+        "North", "South", "East",
+        "West", "North", "South",
+        "East", "West", np.nan,
+        "North"
+    ],
+
+    "Sales": [
+        50000, 30000, 20000,
+        np.nan, 45000, 25000,
+        60000, 35000, 15000,
+        40000
+    ]
+}
+
+df = pd.DataFrame(data)
+
+print("ORIGINAL DATASET:\n")
+print(df)
+
+# ------------------------------------------
+# STEP 2: HANDLE MISSING VALUES
+# ------------------------------------------
+
+# Fill missing sales with mean sales
+df["Sales"].fillna(df["Sales"].mean(), inplace=True)
+
+# Fill missing product with mode
+df["Product"].fillna(df["Product"].mode()[0], inplace=True)
+
+# Fill missing region with mode
+df["Region"].fillna(df["Region"].mode()[0], inplace=True)
+
+print("\n\nDATASET AFTER HANDLING MISSING VALUES:\n")
+print(df)
+
+# ------------------------------------------
+# STEP 3: CONVERT DATE COLUMN
+# ------------------------------------------
+
+df["Date"] = pd.to_datetime(df["Date"])
+
+# ------------------------------------------
+# STEP 4: TOTAL SALES PER PRODUCT
+# ------------------------------------------
+
+product_sales = df.groupby("Product")["Sales"].sum()
+
+print("\n\nTOTAL SALES PER PRODUCT:\n")
+print(product_sales)
+
+# ------------------------------------------
+# STEP 5: REGION-WISE PERFORMANCE
+# ------------------------------------------
+
+region_sales = df.groupby("Region")["Sales"].sum()
+
+print("\n\nREGION-WISE SALES:\n")
+print(region_sales)
+
+# ------------------------------------------
+# STEP 6: SALES TREND OVER TIME
+# ------------------------------------------
+
+daily_sales = df.groupby("Date")["Sales"].sum()
+
+plt.figure(figsize=(10,5))
+plt.plot(daily_sales.index, daily_sales.values, marker='o')
+
+plt.title("Sales Trend Over Time")
+plt.xlabel("Date")
+plt.ylabel("Sales")
+plt.grid(True)
+
+plt.show()
+
+# ------------------------------------------
+# STEP 7: TOP PRODUCTS BAR CHART
+# ------------------------------------------
+
+plt.figure(figsize=(8,5))
+product_sales.plot(kind='bar')
+
+plt.title("Total Sales Per Product")
+plt.xlabel("Product")
+plt.ylabel("Total Sales")
+
+plt.show()
+
+# ------------------------------------------
+# STEP 8: MONTHLY GROWTH ANALYSIS
+# ------------------------------------------
+
+df["Month"] = df["Date"].dt.month
+
+monthly_sales = df.groupby("Month")["Sales"].sum()
+
+growth = monthly_sales.pct_change() * 100
+
+print("\n\nMONTHLY SALES:\n")
+print(monthly_sales)
+
+print("\n\nMONTHLY GROWTH (%):\n")
+print(growth)
+
+# ------------------------------------------
+# STEP 9: BEST PERFORMING REGION
+# ------------------------------------------
+
+best_region = region_sales.idxmax()
+
+print("\n\nBEST PERFORMING REGION:")
+print(best_region)
+
+# ------------------------------------------
+# STEP 10: KEY INSIGHTS
+# ------------------------------------------
+
+print("\n\nKEY INSIGHTS:")
+print("1. Laptop generated the highest sales.")
+print("2. North region performed strongly overall.")
+print("3. Sales increased in February compared to January.")
