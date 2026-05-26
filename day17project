@@ -1,0 +1,71 @@
+# PROJECT 17 — CUSTOMER SEGMENTATION ANALYSIS
+
+# Import Libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+# Step 1: Create Sample Dataset
+
+data = {
+    "Customer_ID": [101,102,103,104,105,106,107,108,109,110],
+    "Age": [22,35,45,25,52,23,40,60,48,33],
+    "Spending": [200,1500,3000,500,4000,250,2200,5000,3500,1200],
+    "Visits": [2,10,15,4,18,3,12,20,16,8]
+}
+
+df = pd.DataFrame(data)
+
+print("Customer Dataset:\n")
+print(df)
+# Step 2: Create Spending-Based Segments
+def segment_customer(spending):
+    if spending >= 3000:
+        return "High"
+    elif spending >= 1000:
+        return "Medium"
+    else:
+        return "Low"
+
+df["Customer_Category"] = df["Spending"].apply(segment_customer)
+
+# Step 3: Identify Special Customers
+# High-value customers
+high_value = df[df["Spending"] >= 3000]
+
+# Low-engagement users
+low_engagement = df[df["Visits"] <= 3]
+
+print("\nHigh Value Customers:\n")
+print(high_value)
+
+print("\nLow Engagement Users:\n")
+print(low_engagement)
+
+# Step 4: Visualization - Spending Distribution
+
+plt.figure(figsize=(8,5))
+plt.hist(df["Spending"], bins=5)
+plt.title("Customer Spending Distribution")
+plt.xlabel("Spending Amount")
+plt.ylabel("Number of Customers")
+plt.show()
+# Step 5: Visualization - Customer Categories
+
+category_count = df["Customer_Category"].value_counts()
+
+plt.figure(figsize=(6,6))
+plt.pie(category_count,
+        labels=category_count.index,
+        autopct='%1.1f%%')
+
+plt.title("Customer Categories")
+plt.show()
+# Step 6: Business Insights
+
+print("\nBUSINESS INSIGHTS:")
+print("1. High spending customers should receive premium offers.")
+print("2. Low engagement users can be targeted using discounts.")
+print("3. Medium customers can be converted into high-value customers.")
+print("4. Personalized marketing can improve customer retention.")
