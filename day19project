@@ -1,0 +1,84 @@
+# MOVIE DATASET ANALYSIS PROJECT
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# STEP 1: CREATE DATASET
+
+data = {
+    "Movie_Name": [
+        "Inception", "Avengers", "Titanic",
+        "Joker", "Interstellar", "Bahubali",
+        "KGF", "Dangal", "Pushpa", "Avatar"
+    ],
+
+    "Rating": [
+        8.8, 8.5, 7.9,
+        8.4, 8.7, 8.2,
+        8.3, 8.4, 7.8, 7.9
+    ],
+
+    "Genre": [
+        "Sci-Fi", "Action", "Romance",
+        "Drama", "Sci-Fi", "Action",
+        "Action", "Sports", "Action", "Sci-Fi"
+    ],
+
+    "Revenue": [
+        850, 1500, 2200,
+        1000, 700, 1800,
+        1200, 2000, 1100, 2900
+    ]
+}
+
+df = pd.DataFrame(data)
+
+print("MOVIE DATASET")
+print(df)
+
+# STEP 2: HIGHEST RATED MOVIES
+highest_rated = df[df["Rating"] == df["Rating"].max()]
+
+print("\nHighest Rated Movie:")
+print(highest_rated)
+
+# STEP 3: MOST PROFITABLE GENRES
+
+genre_profit = df.groupby("Genre")["Revenue"].sum()
+
+print("\nMost Profitable Genres:")
+print(genre_profit)
+
+# STEP 4: TOP 5 MOVIES
+
+top5 = df.sort_values(by="Rating", ascending=False).head(5)
+
+print("\nTop 5 Movies:")
+print(top5)
+
+# STEP 5: CORRELATION
+correlation = df["Rating"].corr(df["Revenue"])
+
+print("\nCorrelation Between Rating and Revenue:")
+print(correlation)
+
+ STEP 6: VISUALIZATION
+
+# Genre vs Revenue
+plt.figure(figsize=(8,5))
+genre_profit.plot(kind='bar')
+
+plt.title("Genre vs Revenue")
+plt.xlabel("Genre")
+plt.ylabel("Revenue")
+plt.show()
+
+# Rating Distribution
+plt.figure(figsize=(8,5))
+
+plt.hist(df["Rating"], bins=5)
+
+plt.title("Rating Distribution")
+plt.xlabel("Ratings")
+plt.ylabel("Frequency")
+plt.show()
