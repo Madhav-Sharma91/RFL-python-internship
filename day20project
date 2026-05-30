@@ -1,0 +1,37 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = {
+    "Product": ["Laptop", "Mobile", "Tablet", "Headphones", "Smartwatch"],
+    "Sales": [120, 250, 80, 180, 140]
+}
+
+df = pd.DataFrame(data)
+
+print("Original Dataset:")
+print(df)
+
+df.drop_duplicates(inplace=True)
+df.dropna(inplace=True)
+
+total_sales = df["Sales"].sum()
+average_sales = df["Sales"].mean()
+highest_product = df.loc[df["Sales"].idxmax(), "Product"]
+
+print("\nAnalysis Results")
+print("Total Sales:", total_sales)
+print("Average Sales:", average_sales)
+print("Highest Selling Product:", highest_product)
+
+plt.figure(figsize=(8, 5))
+plt.bar(df["Product"], df["Sales"])
+plt.title("Product Sales Analysis")
+plt.xlabel("Products")
+plt.ylabel("Sales")
+plt.show()
+
+print("\nSummary:")
+print("The dataset was cleaned and analyzed. Total sales are", total_sales,
+      "with an average of", round(average_sales, 2),
+      ". The highest selling product is", highest_product,
+      ". The bar chart visualizes the sales performance of each product.")
