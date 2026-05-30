@@ -1,0 +1,48 @@
+# Project 2 – Student Score Analyzer
+
+# Given marks
+marks = [78, 85, 90, 67, 85, 92, 78]
+
+# Calculate average
+average = sum(marks) / len(marks)
+
+# Find highest and lowest marks
+highest = max(marks)
+lowest = min(marks)
+
+# Count students scoring above average
+above_average = 0
+for mark in marks:
+    if mark > average:
+        above_average += 1
+
+# Function to assign grades
+def get_grade(score):
+    if score >= 90:
+        return "A"
+    elif score >= 80:
+        return "B"
+    elif score >= 70:
+        return "C"
+    else:
+        return "FAIL"
+
+# Grade distribution
+grade_distribution = {"A": 0, "B": 0, "C": 0, "FAIL": 0}
+
+for mark in marks:
+    grade = get_grade(mark)
+    grade_distribution[grade] += 1
+
+# Display results
+print("Student Score Analyzer")
+print("----------------------")
+print("Marks:", marks)
+print("Average Marks:", round(average, 2))
+print("Highest Marks:", highest)
+print("Lowest Marks:", lowest)
+print("Students Scoring Above Average:", above_average)
+
+print("\nGrade Distribution:")
+for grade, count in grade_distribution.items():
+    print(f"{grade}: {count}")
