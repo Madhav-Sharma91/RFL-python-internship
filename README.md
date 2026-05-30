@@ -161,7 +161,7 @@ I am a Computer Science Engineering student specializing in **Artificial Intelli
 
 # 🔗 Connect With Me
 
-- LinkedIn: madhav-sharma91
+- LinkedIn: www.linkedin.com/in/madhav-sharma91
 - GitHub: https://github.com/Madhav-Sharma91
 - Email: madhavsharma19478@gmail.com
 
